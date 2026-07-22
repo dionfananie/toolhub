@@ -1,16 +1,22 @@
 import type { Route } from "./+types/home";
 import { CategoryCard } from "~/components/category-card";
 import { ToolCard } from "~/components/tool-card";
+import { JsonLd } from "~/components/json-ld";
 import { useTheme } from "~/lib/theme-context";
+import {
+  ogMeta,
+  webPageSchema,
+  breadcrumbSchema,
+} from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Toolhub — Your Pocket Utility Belt";
+  const description =
+    "Your pocket utility belt — designed for speed, built with soul. Discover curated tools for finance, design, development, text, and conversion.";
   return [
-    { title: "Toolhub — Your Pocket Utility Belt" },
-    {
-      name: "description",
-      content:
-        "Your pocket utility belt — designed for speed, built with soul. Discover curated tools for finance, design, development, text, and conversion.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/"),
   ];
 }
 
@@ -293,6 +299,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-10 sm:gap-14 max-w-5xl mx-auto animate-fade-in">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Toolhub — Your Pocket Utility Belt", "Your pocket utility belt — curated tools for finance, design, development, text, and conversion.", "/")} />
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: "/" }])} />
+
       {/* Hero Section */}
       <section className="flex flex-col gap-4 pt-8 sm:pt-12">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-display text-on-surface tracking-tight leading-tight">

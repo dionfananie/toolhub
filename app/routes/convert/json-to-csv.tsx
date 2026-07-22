@@ -1,14 +1,16 @@
 import type { Route } from "./+types/home";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "JSON to CSV — Toolhub";
+  const description =
+    "Flatten hierarchical JSON data into CSV format instantly. Paste your JSON and get clean CSV output.";
   return [
-    { title: "JSON to CSV — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Flatten hierarchical JSON data into CSV format instantly. Paste your JSON and get clean CSV output.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/convert/json-to-csv"),
   ];
 }
 
@@ -17,6 +19,15 @@ export default function JsonToCsv() {
 
   return (
     <div className="flex flex-col gap-8 max-w-4xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("JSON to CSV — Toolhub", "Flatten hierarchical JSON data into CSV format instantly.", "/convert/json-to-csv")} />
+      <JsonLd data={softwareAppSchema("JSON to CSV", "Flatten hierarchical JSON data into CSV format instantly. Paste your JSON and get clean CSV output.", "/convert/json-to-csv")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Converters", url: "/convert" },
+        { name: "JSON to CSV", url: "/convert/json-to-csv" },
+      ])} />
+
       {/* Back link */}
       <button
         type="button"

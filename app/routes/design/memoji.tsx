@@ -2,15 +2,17 @@ import { useMemo, useState, useCallback, useRef } from "react";
 import type { Route } from "./+types/home";
 import { useNavigate } from "react-router";
 import { MEMOJI_ITEMS, type MemojiItem } from "~/lib/memoji-data";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Memoji Downloader — Toolhub";
+  const description =
+    "Browse and download 800+ custom memojis with 14 unique characters, 29 emotions, and 2 skin tones. All designs are original and created in Figma.";
   return [
-    { title: "Memoji Downloader — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Browse and download 800+ custom memojis with 14 unique characters, 29 emotions, and 2 skin tones. All designs are original and created in Figma.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/design/memoji"),
   ];
 }
 
@@ -272,6 +274,15 @@ export default function MemojiDownloader() {
 
   return (
     <div className="flex flex-col gap-5 max-w-7xl mx-auto animate-fade-in pt-4 pb-12">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Memoji Downloader — Toolhub", "Browse and download 800+ custom memojis with 14 characters, 29 emotions, and 2 skin tones.", "/design/memoji")} />
+      <JsonLd data={softwareAppSchema("Memoji Downloader", "Browse and download 800+ custom memojis with 14 unique characters, 29 emotions, and 2 skin tones. All designs are original and created in Figma.", "/design/memoji")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Design Assets", url: "/design" },
+        { name: "Memoji Downloader", url: "/design/memoji" },
+      ])} />
+
       {toastMsg && (
         <div className="fixed top-4 right-4 z-50 px-4 py-2.5 rounded-full glass text-sm font-medium text-on-surface animate-fade-in shadow-lg">
           {toastMsg}

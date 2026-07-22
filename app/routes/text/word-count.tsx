@@ -1,15 +1,17 @@
 import { useState, useMemo } from "react";
 import type { Route } from "./+types/word-count";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Word Counter — Toolhub";
+  const description =
+    "Count words, characters, sentences, paragraphs, and reading time in any text. Fast and private — all in your browser.";
   return [
-    { title: "Word Counter — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Count words, characters, sentences, paragraphs, and reading time in any text. Fast and private — all in your browser.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/text/word-count"),
   ];
 }
 
@@ -93,6 +95,15 @@ Speaking time: ${stats.speakingTime}`;
 
   return (
     <div className="flex flex-col gap-8 max-w-3xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Word Counter — Toolhub", "Count words, characters, sentences, paragraphs, and reading time in any text.", "/text/word-count")} />
+      <JsonLd data={softwareAppSchema("Word Counter", "Count words, characters, sentences, paragraphs, and reading time in any text. Fast and private.", "/text/word-count")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Text & Data", url: "/text" },
+        { name: "Word Counter", url: "/text/word-count" },
+      ])} />
+
       {toast && (
         <div className="fixed top-4 right-4 z-50 px-4 py-2.5 rounded-full glass text-sm font-medium text-on-surface animate-fade-in shadow-lg">
           {toast}

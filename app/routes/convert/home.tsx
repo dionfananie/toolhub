@@ -1,14 +1,16 @@
 import type { Route } from "./+types/home";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, collectionPageSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Converters — Toolhub";
+  const description =
+    "PDF scanning, JSON to CSV conversion, Roman numeral to decimal, unit converters, and more — fast and accurate.";
   return [
-    { title: "Converters — Toolhub" },
-    {
-      name: "description",
-      content:
-        "PDF scanning, JSON to CSV conversion, Roman numeral to decimal, unit converters, and more — fast and accurate.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/convert"),
   ];
 }
 
@@ -370,6 +372,12 @@ function RomanToDecimalSection() {
 export default function ConvertersHome() {
   return (
     <div className="flex flex-col gap-6 max-w-7xl mx-auto animate-fade-in">
+      {/* JSON-LD structured data */}
+      <JsonLd data={collectionPageSchema("Converters", "PDF scanning, JSON to CSV conversion, Roman numeral to decimal, unit converters, and more — fast and accurate.", "/convert")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Converters", url: "/convert" },
+      ])} />
       {/* Page header */}
       <section className="flex flex-col gap-2 pt-4 sm:pt-8">
         <h1 className="text-4xl sm:text-5xl font-bold font-display text-on-surface tracking-tight leading-tight">

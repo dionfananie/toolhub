@@ -1,15 +1,17 @@
 import { useState, useMemo } from "react";
 import type { Route } from "./+types/slug";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Slug Generator — Toolhub";
+  const description =
+    "Generate clean, URL-friendly slugs from any text. Supports custom separators, prefix, and suffix options.";
   return [
-    { title: "Slug Generator — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Generate clean, URL-friendly slugs from any text. Supports custom separators, prefix, and suffix options.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/text/slug"),
   ];
 }
 
@@ -91,6 +93,15 @@ export default function SlugGenerator() {
 
   return (
     <div className="flex flex-col gap-8 max-w-3xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Slug Generator — Toolhub", "Generate clean, URL-friendly slugs from any text.", "/text/slug")} />
+      <JsonLd data={softwareAppSchema("Slug Generator", "Generate clean, URL-friendly slugs from any text. Supports custom separators, prefix, and suffix options.", "/text/slug")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Text & Data", url: "/text" },
+        { name: "Slug Generator", url: "/text/slug" },
+      ])} />
+
       {toast && (
         <div className="fixed top-4 right-4 z-50 px-4 py-2.5 rounded-full glass text-sm font-medium text-on-surface animate-fade-in shadow-lg">
           {toast}

@@ -1,15 +1,17 @@
 import { useState, useRef, useCallback } from "react";
 import type { Route } from "./+types/base64";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Base64 Encoder / Decoder — Toolhub";
+  const description =
+    "Encode text or files to base64, or decode base64 back to readable text. Supports UTF-8, file upload, and copy to clipboard.";
   return [
-    { title: "Base64 Encoder / Decoder — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Encode text or files to base64, or decode base64 back to readable text. Supports UTF-8, file upload, and copy to clipboard.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/dev/base64"),
   ];
 }
 
@@ -120,6 +122,15 @@ export default function Base64Tool() {
 
   return (
     <div className="flex flex-col gap-8 max-w-3xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Base64 Encoder / Decoder — Toolhub", "Encode text or files to base64, or decode base64 back to readable text.", "/dev/base64")} />
+      <JsonLd data={softwareAppSchema("Base64 Encoder / Decoder", "Encode text or files to base64, or decode base64 back to readable text. Supports UTF-8, file upload, and copy to clipboard.", "/dev/base64")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Developer Tools", url: "/dev" },
+        { name: "Base64 Encoder / Decoder", url: "/dev/base64" },
+      ])} />
+
       {toast && (
         <div className="fixed top-4 right-4 z-50 px-4 py-2.5 rounded-full glass text-sm font-medium text-on-surface animate-fade-in shadow-lg">
           {toast}

@@ -1,14 +1,16 @@
 import type { Route } from "./+types/home";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "PDF Scanner — Toolhub";
+  const description =
+    "Transform physical documents into searchable PDFs with our OCR engine. Drag and drop files to get started.";
   return [
-    { title: "PDF Scanner — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Transform physical documents into searchable PDFs with our OCR engine. Drag and drop files to get started.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/convert/pdf-scanner"),
   ];
 }
 
@@ -17,6 +19,15 @@ export default function PdfScanner() {
 
   return (
     <div className="flex flex-col gap-8 max-w-3xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("PDF Scanner — Toolhub", "Transform physical documents into searchable PDFs with our OCR engine.", "/convert/pdf-scanner")} />
+      <JsonLd data={softwareAppSchema("PDF Scanner", "Transform physical documents into searchable PDFs with our OCR engine. Drag and drop files to get started.", "/convert/pdf-scanner")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Converters", url: "/convert" },
+        { name: "PDF Scanner", url: "/convert/pdf-scanner" },
+      ])} />
+
       {/* Back link */}
       <button
         type="button"

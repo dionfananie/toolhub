@@ -1,14 +1,16 @@
 import type { Route } from "./+types/home";
 import { ToolCard } from "~/components/tool-card";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, collectionPageSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Financial Tools — Toolhub";
+  const description =
+    "Currency converter, gold price tracker, tax calculator, loan calculator, and CAGR calculator — all in one place.";
   return [
-    { title: "Financial Tools — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Currency converter, gold price tracker, tax calculator, loan calculator, and CAGR calculator — all in one place.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/financial"),
   ];
 }
 
@@ -151,6 +153,13 @@ const FINANCIAL_TOOLS = [
 export default function FinancialHome() {
   return (
     <div className="flex flex-col gap-6 max-w-3xl mx-auto animate-fade-in">
+      {/* JSON-LD structured data */}
+      <JsonLd data={collectionPageSchema("Financial Tools", "Currency converter, gold price tracker, tax calculator, loan calculator, and CAGR calculator.", "/financial")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Financial Tools", url: "/financial" },
+      ])} />
+
       {/* Header */}
       <section className="flex flex-col gap-2 pt-4">
         <h1 className="text-2xl sm:text-3xl font-bold font-display text-on-surface tracking-tight">

@@ -1,15 +1,17 @@
 import { useState, useMemo, useCallback } from "react";
 import type { Route } from "./+types/regex";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Regex Tester — Toolhub";
+  const description =
+    "Test regular expressions in real-time. See matches highlighted in your test string with capture group details.";
   return [
-    { title: "Regex Tester — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Test regular expressions in real-time. See matches highlighted in your test string with capture group details.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/dev/regex"),
   ];
 }
 
@@ -166,6 +168,15 @@ export default function RegexTester() {
 
   return (
     <div className="flex flex-col gap-8 max-w-4xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Regex Tester — Toolhub", "Test regular expressions in real-time with match highlighting and capture group details.", "/dev/regex")} />
+      <JsonLd data={softwareAppSchema("Regex Tester", "Test regular expressions in real-time. See matches highlighted in your test string with capture group details.", "/dev/regex")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Developer Tools", url: "/dev" },
+        { name: "Regex Tester", url: "/dev/regex" },
+      ])} />
+
       {/* Back link */}
       <button
         type="button"

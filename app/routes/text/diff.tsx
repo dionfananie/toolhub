@@ -1,15 +1,17 @@
 import { useState, useMemo } from "react";
 import type { Route } from "./+types/diff";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Diff Checker — Toolhub";
+  const description =
+    "Compare two texts side-by-side and instantly see the differences. Highlight added, removed, and unchanged lines.";
   return [
-    { title: "Diff Checker — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Compare two texts side-by-side and instantly see the differences. Highlight added, removed, and unchanged lines.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/text/diff"),
   ];
 }
 
@@ -179,6 +181,15 @@ export default function DiffChecker() {
 
   return (
     <div className="flex flex-col gap-8 max-w-5xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Diff Checker — Toolhub", "Compare two texts side-by-side and instantly see the differences.", "/text/diff")} />
+      <JsonLd data={softwareAppSchema("Diff Checker", "Compare two texts side-by-side and instantly see the differences. Highlight added, removed, and unchanged lines.", "/text/diff")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Text & Data", url: "/text" },
+        { name: "Diff Checker", url: "/text/diff" },
+      ])} />
+
       {/* Back link */}
       <button
         type="button"

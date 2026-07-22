@@ -1,15 +1,17 @@
 import { useState, useCallback } from "react";
 import type { Route } from "./+types/jwt";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "JWT Decoder — Toolhub";
+  const description =
+    "Decode JWT tokens and inspect the header, payload, and signature. Supports HS256, RS256, and other common algorithms.";
   return [
-    { title: "JWT Decoder — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Decode JWT tokens and inspect the header, payload, and signature. Supports HS256, RS256, and other common algorithms.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/dev/jwt"),
   ];
 }
 
@@ -115,6 +117,15 @@ export default function JwtDecoder() {
 
   return (
     <div className="flex flex-col gap-8 max-w-3xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("JWT Decoder — Toolhub", "Decode JWT tokens and inspect the header, payload, and signature.", "/dev/jwt")} />
+      <JsonLd data={softwareAppSchema("JWT Decoder", "Decode JWT tokens and inspect the header, payload, and signature. Supports HS256, RS256, and other common algorithms.", "/dev/jwt")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Developer Tools", url: "/dev" },
+        { name: "JWT Decoder", url: "/dev/jwt" },
+      ])} />
+
       {toast && (
         <div className="fixed top-4 right-4 z-50 px-4 py-2.5 rounded-full glass text-sm font-medium text-on-surface animate-fade-in shadow-lg">
           {toast}

@@ -1,14 +1,16 @@
 import type { Route } from "./+types/home";
 import { ToolCard } from "~/components/tool-card";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, collectionPageSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Text & Data Tools — Toolhub";
+  const description =
+    "Word counter, diff checker, case converter, slug generator, and markdown preview — all in your browser.";
   return [
-    { title: "Text & Data Tools — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Word counter, diff checker, case converter, slug generator, and markdown preview — all in your browser.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/text"),
   ];
 }
 
@@ -156,6 +158,13 @@ const TEXT_TOOLS = [
 export default function TextHome() {
   return (
     <div className="flex flex-col gap-6 max-w-3xl mx-auto animate-fade-in">
+      {/* JSON-LD structured data */}
+      <JsonLd data={collectionPageSchema("Text & Data Tools", "Word counter, diff checker, case converter, slug generator, and markdown preview.", "/text")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Text & Data", url: "/text" },
+      ])} />
+
       {/* Header */}
       <section className="flex flex-col gap-2 pt-4">
         <h1 className="text-2xl sm:text-3xl font-bold font-display text-on-surface tracking-tight">

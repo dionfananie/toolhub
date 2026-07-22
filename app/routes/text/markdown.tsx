@@ -1,15 +1,17 @@
 import { useState, useMemo, useRef, useCallback } from "react";
 import type { Route } from "./+types/markdown";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Markdown Preview — Toolhub";
+  const description =
+    "Write markdown and see the rendered preview in real-time. Live editor with split view, supports headings, code, lists, and more.";
   return [
-    { title: "Markdown Preview — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Write markdown and see the rendered preview in real-time. Live editor with split view, supports headings, code, lists, and more.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/text/markdown"),
   ];
 }
 
@@ -206,6 +208,15 @@ export default function MarkdownPreview() {
 
   return (
     <div className="flex flex-col gap-6 max-w-7xl mx-auto animate-fade-in pt-6 pb-12">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Markdown Preview — Toolhub", "Write markdown and see the rendered preview in real-time with live editor and split view.", "/text/markdown")} />
+      <JsonLd data={softwareAppSchema("Markdown Preview", "Write markdown and see the rendered preview in real-time. Live editor with split view, supports headings, code, lists, and more.", "/text/markdown")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Text & Data", url: "/text" },
+        { name: "Markdown Preview", url: "/text/markdown" },
+      ])} />
+
       {toast && (
         <div className="fixed top-4 right-4 z-50 px-4 py-2.5 rounded-full glass text-sm font-medium text-on-surface animate-fade-in shadow-lg">
           {toast}

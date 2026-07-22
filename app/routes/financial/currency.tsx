@@ -1,19 +1,30 @@
 import type { Route } from "./+types/currency";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Currency Converter — Toolhub";
+  const description =
+    "Convert between 170+ currencies with live exchange rates. Real-time results as you type.";
   return [
-    { title: "Currency Converter — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Convert between 170+ currencies with live exchange rates. Real-time results as you type.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/financial/currency"),
   ];
 }
 
 export default function CurrencyConverter() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 max-w-lg mx-auto pt-12 animate-fade-in">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Currency Converter — Toolhub", "Convert between 170+ currencies with live exchange rates.", "/financial/currency")} />
+      <JsonLd data={softwareAppSchema("Currency Converter", "Convert between 170+ currencies with live exchange rates. Real-time results as you type.", "/financial/currency")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Financial Tools", url: "/financial" },
+        { name: "Currency Converter", url: "/financial/currency" },
+      ])} />
+
       {/* Icon */}
       <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary">
         <svg

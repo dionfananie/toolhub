@@ -1,14 +1,16 @@
 import type { Route } from "./+types/home";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Roman to Decimal — Toolhub";
+  const description =
+    "Convert Roman numerals to decimal numbers instantly. Supports I, V, X, L, C, D, M and standard subtractive notation.";
   return [
-    { title: "Roman to Decimal — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Convert Roman numerals to decimal numbers instantly. Supports I, V, X, L, C, D, M and standard subtractive notation.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/convert/roman-to-decimal"),
   ];
 }
 
@@ -17,6 +19,15 @@ export default function RomanToDecimal() {
 
   return (
     <div className="flex flex-col gap-8 max-w-lg mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Roman to Decimal — Toolhub", "Convert Roman numerals to decimal numbers instantly.", "/convert/roman-to-decimal")} />
+      <JsonLd data={softwareAppSchema("Roman to Decimal", "Convert Roman numerals to decimal numbers instantly. Supports I, V, X, L, C, D, M and standard subtractive notation.", "/convert/roman-to-decimal")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Converters", url: "/convert" },
+        { name: "Roman to Decimal", url: "/convert/roman-to-decimal" },
+      ])} />
+
       {/* Back link */}
       <button
         type="button"

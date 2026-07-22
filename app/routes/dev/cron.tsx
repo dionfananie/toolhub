@@ -1,15 +1,17 @@
 import { useState, useMemo } from "react";
 import type { Route } from "./+types/cron";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Cron Expression Parser — Toolhub";
+  const description =
+    "Parse cron expressions and get human-readable descriptions. Preview upcoming execution times for 5-field and 6-field cron schedules.";
   return [
-    { title: "Cron Expression Parser — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Parse cron expressions and get human-readable descriptions. Preview upcoming execution times for 5-field and 6-field cron schedules.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/dev/cron"),
   ];
 }
 
@@ -242,6 +244,15 @@ export default function CronParser() {
 
   return (
     <div className="flex flex-col gap-8 max-w-3xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Cron Expression Parser — Toolhub", "Parse cron expressions and preview upcoming execution times.", "/dev/cron")} />
+      <JsonLd data={softwareAppSchema("Cron Expression Parser", "Parse cron expressions and get human-readable descriptions. Preview upcoming execution times for 5-field and 6-field cron schedules.", "/dev/cron")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Developer Tools", url: "/dev" },
+        { name: "Cron Expression Parser", url: "/dev/cron" },
+      ])} />
+
       {/* Back link */}
       <button
         type="button"

@@ -1,19 +1,30 @@
 import type { Route } from "./+types/gold";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Gold Price Tracker — Toolhub";
+  const description =
+    "Track real-time gold prices by weight, purity, and currency. Grams, ounces, tola — 24K, 22K, 21K, 18K, 14K.";
   return [
-    { title: "Gold Price Tracker — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Track real-time gold prices by weight, purity, and currency. Grams, ounces, tola — 24K, 22K, 21K, 18K, 14K.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/financial/gold"),
   ];
 }
 
 export default function GoldPriceTracker() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 max-w-lg mx-auto pt-12 animate-fade-in">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("Gold Price Tracker — Toolhub", "Track real-time gold prices by weight, purity, and currency.", "/financial/gold")} />
+      <JsonLd data={softwareAppSchema("Gold Price Tracker", "Track real-time gold prices by weight, purity, and currency. Grams, ounces, tola — 24K, 22K, 21K, 18K, 14K.", "/financial/gold")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Financial Tools", url: "/financial" },
+        { name: "Gold Price Tracker", url: "/financial/gold" },
+      ])} />
+
       {/* Icon */}
       <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary">
         <svg

@@ -1,14 +1,16 @@
 import type { Route } from "./+types/home";
 import { ToolCard } from "~/components/tool-card";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, collectionPageSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "Developer Tools — Toolhub";
+  const description =
+    "JSON formatter, UUID generator, base64 encoder/decoder, regex tester, cron parser, and JWT decoder for developers.";
   return [
-    { title: "Developer Tools — Toolhub" },
-    {
-      name: "description",
-      content:
-        "JSON formatter, UUID generator, base64 encoder/decoder, regex tester, cron parser, and JWT decoder for developers.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/dev"),
   ];
 }
 
@@ -181,6 +183,13 @@ const DEV_TOOLS = [
 export default function DevHome() {
   return (
     <div className="flex flex-col gap-6 max-w-3xl mx-auto animate-fade-in">
+      {/* JSON-LD structured data */}
+      <JsonLd data={collectionPageSchema("Developer Tools", "JSON formatter, UUID generator, base64 encoder/decoder, regex tester, cron parser, and JWT decoder.", "/dev")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Developer Tools", url: "/dev" },
+      ])} />
+
       {/* Header */}
       <section className="flex flex-col gap-2 pt-4">
         <h1 className="text-2xl sm:text-3xl font-bold font-display text-on-surface tracking-tight">

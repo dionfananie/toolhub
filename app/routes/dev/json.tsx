@@ -1,15 +1,17 @@
 import { useState } from "react";
 import type { Route } from "./+types/json";
 import { useNavigate } from "react-router";
+import { JsonLd } from "~/components/json-ld";
+import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
 export function meta({}: Route.MetaArgs) {
+  const title = "JSON Formatter — Toolhub";
+  const description =
+    "Format, validate, and minify JSON payloads. Pretty-print with configurable indentation or compress to a single line.";
   return [
-    { title: "JSON Formatter — Toolhub" },
-    {
-      name: "description",
-      content:
-        "Format, validate, and minify JSON payloads. Pretty-print with configurable indentation or compress to a single line.",
-    },
+    { title },
+    { name: "description", content: description },
+    ...ogMeta(title, description, "/dev/json"),
   ];
 }
 
@@ -75,6 +77,15 @@ export default function JsonFormatter() {
 
   return (
     <div className="flex flex-col gap-8 max-w-4xl mx-auto animate-fade-in pt-6">
+      {/* JSON-LD structured data */}
+      <JsonLd data={webPageSchema("JSON Formatter — Toolhub", "Format, validate, and minify JSON payloads with configurable indentation.", "/dev/json")} />
+      <JsonLd data={softwareAppSchema("JSON Formatter", "Format, validate, and minify JSON payloads. Pretty-print with configurable indentation or compress to a single line.", "/dev/json")} />
+      <JsonLd data={breadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Developer Tools", url: "/dev" },
+        { name: "JSON Formatter", url: "/dev/json" },
+      ])} />
+
       {toast && (
         <div className="fixed top-4 right-4 z-50 px-4 py-2.5 rounded-full glass text-sm font-medium text-on-surface animate-fade-in shadow-lg">
           {toast}

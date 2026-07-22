@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import { ThemeProvider, ThemeScript } from "~/lib/theme-context";
 import { Header } from "~/components/header";
 import { GlassNav } from "~/components/glass-nav";
+import { SITE_NAME, SITE_URL, websiteSchema, organizationSchema } from "~/lib/seo";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -30,6 +31,22 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+/**
+ * Root meta — sets default Open Graph, Twitter Card, and canonical tags.
+ * Individual routes override og:title and og:description via their own meta().
+ */
+export function meta({ location }: Route.MetaArgs) {
+  const path = location.pathname;
+  return [
+    { tagName: "link", rel: "canonical", href: `${SITE_URL}${path}` },
+    { property: "og:site_name", content: SITE_NAME },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: `${SITE_URL}${path}` },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@toolhub" },
+  ];
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -38,6 +55,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* JSON-LD structured data for the whole site */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema()),
+          }}
+        />
         {/* Inline script to set theme class before paint (prevents FOUC) */}
         <script dangerouslySetInnerHTML={{ __html: ThemeScript() }} />
       </head>
