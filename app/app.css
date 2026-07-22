@@ -1,16 +1,261 @@
-@import "tailwindcss" source(".");
+@import "tailwindcss";
 
-@theme {
-	--font-sans:
-		"Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+/* ============================================================
+   CINEMATIC DISCOVERY LANGUAGE — Tailwind v4 Theme
+   Dark/Light mode via .dark / .light class on <html>
+   ============================================================ */
+
+/* --- Class-based dark mode variant --- */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================================
+   CSS Custom Properties — Theme Tokens
+   Light mode is the default (:root)
+   Dark mode overrides via .dark
+   ============================================================ */
+
+:root {
+  /* Surface hierarchy — light mode */
+  --tk-surface-dim: #f5f5f5;
+  --tk-surface-container-lowest: #ffffff;
+  --tk-surface-container-low: #f3f3f3;
+  --tk-surface: #fafafa;
+  --tk-surface-container: #eeeeee;
+  --tk-surface-container-high: #e4e4e4;
+  --tk-surface-container-highest: #d8d8d8;
+  --tk-surface-variant: #f0f0f0;
+
+  /* Brand colors — shared between themes (unchanged) */
+  --tk-primary: #ffb1c3;
+  --tk-primary-container: #ff4b89;
+  --tk-tertiary: #00dbe9;
+
+  /* Text colors — light mode */
+  --tk-on-surface: #1a1a1a;
+  --tk-on-surface-variant: #6b4f55;
+  --tk-on-primary: #ffffff;
+
+  /* Ghost borders */
+  --tk-outline-variant: #5c3f45;
+
+  /* Background / foreground convenience */
+  --tk-background: var(--tk-surface);
+  --tk-foreground: var(--tk-on-surface);
 }
 
-html,
-body {
-	@apply bg-white dark:bg-gray-950;
+.dark {
+  /* Surface hierarchy — dark mode */
+  --tk-surface-dim: #131313;
+  --tk-surface-container-lowest: #0e0e0e;
+  --tk-surface-container-low: #161616;
+  --tk-surface: #1a1a1a;
+  --tk-surface-container: #1f1f1f;
+  --tk-surface-container-high: #2a2a2a;
+  --tk-surface-container-highest: #353535;
+  --tk-surface-variant: #1c1c1c;
 
-	@media (prefers-color-scheme: dark) {
-		color-scheme: dark;
-	}
+  /* Text colors — dark mode */
+  --tk-on-surface: #e2e2e2;
+  --tk-on-surface-variant: #e5bcc4;
+
+  /* Background / foreground convenience */
+  --tk-background: var(--tk-surface);
+  --tk-foreground: var(--tk-on-surface);
+}
+
+/* ============================================================
+   Design Tokens — Tailwind v4 @theme
+   Maps CSS custom properties to Tailwind utility classes
+   ============================================================ */
+
+@theme {
+  /* --- Surface colors --- */
+  --color-surface-dim: var(--tk-surface-dim);
+  --color-surface-container-lowest: var(--tk-surface-container-lowest);
+  --color-surface-container-low: var(--tk-surface-container-low);
+  --color-surface: var(--tk-surface);
+  --color-surface-container: var(--tk-surface-container);
+  --color-surface-container-high: var(--tk-surface-container-high);
+  --color-surface-container-highest: var(--tk-surface-container-highest);
+  --color-surface-variant: var(--tk-surface-variant);
+
+  /* --- Brand colors --- */
+  --color-primary: var(--tk-primary);
+  --color-primary-container: var(--tk-primary-container);
+  --color-tertiary: var(--tk-tertiary);
+
+  /* --- Text colors --- */
+  --color-on-surface: var(--tk-on-surface);
+  --color-on-surface-variant: var(--tk-on-surface-variant);
+  --color-on-primary: var(--tk-on-primary);
+
+  /* --- Borders --- */
+  --color-outline-variant: var(--tk-outline-variant);
+
+  /* --- Background / foreground convenience --- */
+  --color-background: var(--tk-background);
+  --color-foreground: var(--tk-foreground);
+
+  /* --- Typography --- */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Roundedness --- */
+  --radius-sm: 0.5rem;
+  --radius-card: 1rem;
+  --radius-pill: 9999px;
+
+  /* --- Animations --- */
+  --animate-neon-pulse: neon-pulse 2s ease-in-out infinite;
+  --animate-fade-in: fade-in 400ms ease-out;
+  --animate-slide-up: slide-up 400ms ease-out;
+}
+
+/* ============================================================
+   @keyframes
+   ============================================================ */
+
+@keyframes neon-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   Custom Utilities
+   ============================================================ */
+
+/* Glassmorphism — frosted glass effect */
+@utility glass {
+  background-color: color-mix(in srgb, var(--tk-surface-variant) 60%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+@utility glass-strong {
+  background-color: color-mix(in srgb, var(--tk-surface-variant) 70%, transparent);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+
+/* Neon Gradient — primary CTA gradient */
+@utility neon-gradient {
+  background-image: linear-gradient(135deg, var(--tk-primary), var(--tk-primary-container));
+}
+
+@utility neon-gradient-reverse {
+  background-image: linear-gradient(315deg, var(--tk-primary), var(--tk-primary-container));
+}
+
+/* Neon Glow — ambient glow effects */
+@utility neon-glow {
+  box-shadow: 0 0 24px color-mix(in srgb, var(--tk-primary) 30%, transparent);
+}
+
+@utility neon-glow-sm {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--tk-primary) 20%, transparent);
+}
+
+/* Tonal Layering — elevation through background shifts */
+@utility tonal-surface {
+  background-color: var(--tk-surface);
+}
+
+@utility tonal-container {
+  background-color: var(--tk-surface-container);
+}
+
+@utility tonal-container-high {
+  background-color: var(--tk-surface-container-high);
+}
+
+@utility tonal-container-highest {
+  background-color: var(--tk-surface-container-highest);
+}
+
+/* Neon inner border (ghost border for hover states) */
+@utility neon-inset {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tk-primary) 10%, transparent);
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+
+html {
+  background-color: var(--tk-surface-dim);
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--tk-surface-dim);
+  color: var(--tk-on-surface);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+}
+
+/* Transitions for theme switching — applied after initial load via JS */
+.theme-transitioning * {
+  transition-property: background-color, color, border-color, box-shadow, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--tk-on-surface-variant) 20%, transparent);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--tk-on-surface-variant) 40%, transparent);
+}
+
+/* Focus ring — accessible keyboard focus */
+*:focus-visible {
+  outline: 2px solid var(--tk-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
