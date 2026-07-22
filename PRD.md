@@ -84,7 +84,7 @@ Toolhub aims to be the definitive destination for quick, reliable utility tools.
 | **💰 Financial** | Currency Converter, Gold Price Tracker, Tax Calculator (PPh), Loan Calculator, CAGR Calculator | P0 | Must use live data with clear timestamps |
 | **🎨 Design Assets** | Memoji Downloader, Icon Previewer (future), Color Palette Extractor (future) | P3 | Memoji library sourced from Figma; assets are downloadable per item |
 | **🛠️ Developer** | Border radius preview, Lorem Ipsum Generator, CSV to JSON, Pomodoro Clock, Countdown, Stopwatch, Word Frequency, Random Number Generator, Binary to Decimal, Roman to Decimal | P0 |
-| **🔤 Text & Data** | Word Counter, Character Counter, Diff Checker, Case Converter, Slug Generator, Markdown Preview | P1 | |
+| **🔤 Text & Data** | Word Counter, Character Counter, Diff Checker, Case Converter, Slug Generator,  | P1 | |
 | **📐 Converter** | Unit Converter (length, mass, volume, temperature), Time Zone Converter, Number Base Converter | P1 | |
 | **🧮 Math & Stats** | Percentage Calculator, Tip Calculator, Random Number Generator, Statistical Summary | P2 | |
 

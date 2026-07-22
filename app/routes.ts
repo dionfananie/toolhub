@@ -12,21 +12,21 @@ export default [
   // route("financial/cagr", "routes/financial/cagr.tsx"),
 
   // Developer category
-  // route("dev", "routes/dev/home.tsx"),
-  // route("dev/json", "routes/dev/json.tsx"),
-  // route("dev/uuid", "routes/dev/uuid.tsx"),
-  // route("dev/base64", "routes/dev/base64.tsx"),
-  // route("dev/regex", "routes/dev/regex.tsx"),
-  // route("dev/cron", "routes/dev/cron.tsx"),
-  // route("dev/jwt", "routes/dev/jwt.tsx"),
+  route("dev", "routes/dev/home.tsx"),
+  route("dev/json", "routes/dev/json.tsx"),
+  route("dev/uuid", "routes/dev/uuid.tsx"),
+  route("dev/base64", "routes/dev/base64.tsx"),
+  route("dev/regex", "routes/dev/regex.tsx"),
+  route("dev/cron", "routes/dev/cron.tsx"),
+  route("dev/jwt", "routes/dev/jwt.tsx"),
 
   // Text & Data category
-  // route("text", "routes/text/home.tsx"),
-  // route("text/word-count", "routes/text/word-count.tsx"),
-  // route("text/diff", "routes/text/diff.tsx"),
-  // route("text/case-convert", "routes/text/case-convert.tsx"),
-  // route("text/slug", "routes/text/slug.tsx"),
-  // route("text/markdown", "routes/text/markdown.tsx"),
+  route("text", "routes/text/home.tsx"),
+  route("text/word-count", "routes/text/word-count.tsx"),
+  route("text/diff", "routes/text/diff.tsx"),
+  route("text/case-convert", "routes/text/case-convert.tsx"),
+  route("text/slug", "routes/text/slug.tsx"),
+  route("text/markdown", "routes/text/markdown.tsx"),
 
   // Converter category
   route("convert", "routes/convert/home.tsx"),
@@ -36,4 +36,8 @@ export default [
   // route("convert/unit", "routes/convert/unit.tsx"),
   // route("convert/timezone", "routes/convert/timezone.tsx"),
   // route("convert/base", "routes/convert/base.tsx"),
+
+  // Design Assets category
+  route("design", "routes/design/home.tsx"),
+  route("design/memoji", "routes/design/memoji.tsx"),
 ] satisfies RouteConfig;

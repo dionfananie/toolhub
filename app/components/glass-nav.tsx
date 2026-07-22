@@ -38,6 +38,11 @@ const NAV_ITEMS: NavItem[] = [
     icon: "M4 6h16M4 12h16M4 18h7",
   },
   {
+    path: "/design",
+    label: "Design",
+    icon: "M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2zM6 20V4h8v4h4v12H6zM9 13h6M9 17h3",
+  },
+  {
     path: "/convert",
     label: "Converters",
     icon: "M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4",

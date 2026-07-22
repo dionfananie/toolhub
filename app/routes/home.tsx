@@ -9,7 +9,7 @@ export function meta({}: Route.MetaArgs) {
     {
       name: "description",
       content:
-        "Your pocket utility belt — designed for speed, built with soul. Discover curated tools for finance, development, text, and conversion.",
+        "Your pocket utility belt — designed for speed, built with soul. Discover curated tools for finance, design, development, text, and conversion.",
     },
   ];
 }
@@ -118,6 +118,27 @@ function ConvertIcon() {
   );
 }
 
+function DesignIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="w-5 h-5"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="8" cy="10" r="1" fill="currentColor" stroke="none" />
+      <circle cx="16" cy="10" r="1" fill="currentColor" stroke="none" />
+      <path d="M8 15c0 0 1.5 2 4 2s4-2 4-2" />
+    </svg>
+  );
+}
+
 function MathIcon() {
   return (
     <svg
@@ -166,10 +187,18 @@ const CATEGORIES: Category[] = [
     icon: <TextIcon />,
   },
   {
+    id: "design",
+    name: "Design Assets",
+    path: "/design",
+    description: "Memojis, stickers, color palettes & design resources",
+    toolCount: 2,
+    icon: <DesignIcon />,
+  },
+  {
     id: "convert",
     name: "Converters",
     path: "/convert",
-    description: "Units, time zones, number bases — fast & accurate",
+    description: "PDF scanning, JSON to CSV, numeral conversion & more",
     toolCount: 3,
     icon: <ConvertIcon />,
   },
@@ -246,6 +275,14 @@ const FEATURED_TOOLS: FeaturedTool[] = [
     path: "/dev/json",
     description: "Validate, format, and minify JSON payloads",
     icon: <CodeIcon />,
+  },
+  {
+    id: "memoji",
+    name: "Memoji Downloader",
+    path: "/design/memoji",
+    description: "Download custom emoticons and stickers from Figma",
+    icon: <DesignIcon />,
+    badge: "New",
   },
 ];
 
