@@ -23,6 +23,7 @@ export default [
   route("dev/regex", "routes/dev/regex.tsx"),
   route("dev/cron", "routes/dev/cron.tsx"),
   route("dev/jwt", "routes/dev/jwt.tsx"),
+  route("dev/countdown", "routes/dev/countdown.tsx"),
 
   // Text & Data category
   route("text", "routes/text/home.tsx"),
