@@ -156,3 +156,45 @@ export function collectionPageSchema(
     },
   };
 }
+
+/**
+ * JSON-LD BlogPosting schema for individual blog articles.
+ */
+export function blogPostingSchema(
+  headline: string,
+  description: string,
+  path: string,
+  datePublished: string,
+  dateModified?: string,
+  image?: string,
+) {
+  const base = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline,
+    description,
+    datePublished,
+    dateModified: dateModified || datePublished,
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    url: `${SITE_URL}${path}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}${path}`,
+    },
+  };
+
+  if (image) {
+    return { ...base, image: { "@type": "ImageObject", url: image } };
+  }
+
+  return base;
+}

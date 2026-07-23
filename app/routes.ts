@@ -46,4 +46,8 @@ export default [
   // Design Assets category
   route("design", "routes/design/home.tsx"),
   route("design/memoji", "routes/design/memoji.tsx"),
+
+  // Blog
+  route("blog", "routes/blog/home.tsx"),
+  route("blog/:slug", "routes/blog/$slug.tsx"),
 ] satisfies RouteConfig;
