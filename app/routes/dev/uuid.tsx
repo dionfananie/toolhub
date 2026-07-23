@@ -2,9 +2,10 @@ import { useState, useCallback } from "react";
 import type { Route } from "./+types/uuid";
 import { useNavigate } from "react-router";
 import { JsonLd } from "~/components/json-ld";
+
 import { ogMeta, webPageSchema, softwareAppSchema, breadcrumbSchema } from "~/lib/seo";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   const title = "UUID Generator — Toolhub";
   const description =
     "Generate UUID v4, v7, and other UUID versions in bulk. Copy individual UUIDs or all at once.";
@@ -187,11 +188,10 @@ export default function UuidGenerator() {
                 type="button"
                 onClick={() => setVersion(v.id)}
                 title={v.description}
-                className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer ${
-                  version === v.id
+                className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer ${version === v.id
                     ? "neon-gradient text-[#66002c]"
                     : "tonal-container-highest text-on-surface-variant hover:text-on-surface"
-                }`}
+                  }`}
                 aria-label={`${v.label} — ${v.description}`}
               >
                 {v.label}
