@@ -164,11 +164,25 @@ const modules = import.meta.glob(
 
 let _articles: BlogArticle[] | null = null;
 
+/** Ensure the glob import value is a string — handles both raw string and { default: string } shapes. */
+function ensureString(raw: unknown): string {
+  if (typeof raw === "string") return raw;
+  if (
+    raw &&
+    typeof raw === "object" &&
+    "default" in raw &&
+    typeof (raw as Record<string, unknown>).default === "string"
+  )
+    return (raw as Record<string, string>).default;
+  return "";
+}
+
 function buildArticles(): BlogArticle[] {
   const articles = Object.entries(modules).map(
     ([filepath, raw]): BlogArticle => {
       const filename = filepath.split("/").pop() || "";
-      const { frontmatter, content } = parseFrontmatter(raw);
+      const rawString = ensureString(raw);
+      const { frontmatter, content } = parseFrontmatter(rawString);
 
       // ---- title ----
       const title =
